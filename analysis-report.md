@@ -18,19 +18,19 @@ This report analyzes a self-constructed phishing email impersonating internal IT
 
 
 ## Red Flags Identified (Content-Level)
-- [x] Urgency/pressure language — subject line and body repeatedly stress a 24-hour deadline and threaten account suspension
-- [x] Generic greeting — addressed to "Dear User" rather than the recipient's actual name
-- [x] Suspicious/mismatched sender domain — visible "From" address appears legitimate, but Return-Path and Reply-To both point to a misspelled lookalike domain (it-suport-example-corp.com)
-- [x] Embedded link with display text differing from actual URL — link text reads "Reset My Password Now" but the underlying URL points to an unrelated domain (verify-account-portal.net)
+- [x] Urgency/pressure language - subject line and body repeatedly stress a 24-hour deadline and threaten account suspension
+- [x] Generic greeting - addressed to "Dear User" rather than the recipient's actual name
+- [x] Suspicious/mismatched sender domain - visible "From" address appears legitimate, but Return-Path and Reply-To both point to a misspelled lookalike domain (it-suport-example-corp.com)
+- [x] Embedded link with display text differing from actual URL - link text reads "Reset My Password Now" but the underlying URL points to an unrelated domain (verify-account-portal.net)
 - [x] Request for credential action framed as urgent/mandatory
-- [x] Internally contradictory logic — the email claims both that immediate action is required and that "no action is required," a common inconsistency in hastily constructed phishing templates
+- [x] Internally contradictory logic - the email claims both that immediate action is required and that "no action is required," a common inconsistency in hastily constructed phishing templates
 
 
 ## Header Analysis
 
-**Claimed "From" address:** "IT Support" <it-support@example-corp.com> — appears legitimate at first glance, matching the organization's real domain.
+**Claimed "From" address:** "IT Support" <it-support@example-corp.com> - appears legitimate at first glance, matching the organization's real domain.
 
-**Actual reply/return path:** Both the Return-Path and Reply-To headers point to `it-suport-example-corp.com` — a lookalike domain using a deliberate misspelling ("suport" instead of "support"). The Received header shows the message originated from `mail-relay-node7.suspicious-mailserver.net` (185.220.101.47) — unrelated to the claimed organization's infrastructure.
+**Actual reply/return path:** Both the Return-Path and Reply-To headers point to `it-suport-example-corp.com` - a lookalike domain using a deliberate misspelling ("suport" instead of "support"). The Received header shows the message originated from `mail-relay-node7.suspicious-mailserver.net` (185.220.101.47) - unrelated to the claimed organization's infrastructure.
 
 **Key header fields reviewed:**
 ```
@@ -50,7 +50,7 @@ Received: from mail-relay-node7.suspicious-mailserver.net (unknown [185.220.101.
 | DKIM | Fail | The email's cryptographic signature did not validate, indicating it was not authentically signed by the claimed domain |
 | DMARC | Fail (p=REJECT) | The domain's policy explicitly instructs receiving servers to reject messages failing SPF/DKIM — this email should have been blocked by a properly configured mail server |
 
-**Comparison — a legitimate domain's authentication records** (google.com, checked via MXToolbox) show a valid DNS record, published DMARC record, and enforced quarantine/reject policy — the opposite of this sample's failed results.
+**Comparison - a legitimate domain's authentication records** (google.com, checked via MXToolbox) show a valid DNS record, published DMARC record, and enforced quarantine/reject policy - the opposite of this sample's failed results.
 
 ![MXToolbox authentication results](screenshots/mxtoolbox-comparison.png)
 
@@ -58,7 +58,7 @@ Received: from mail-relay-node7.suspicious-mailserver.net (unknown [185.220.101.
 
 | Indicator | Type | VirusTotal Result |
 |-----------|------|--------------------|
-| example-corp-secure-login.verify-account-portal.net | Domain | 0/91 vendors flagged (Unrated) — fictional domain, no real-world reputation history |
+| example-corp-secure-login.verify-account-portal.net | Domain | 0/91 vendors flagged (Unrated) - fictional domain, no real-world reputation history |
 | 185.220.101.47 | Originating IP (from Received header) | **13/91 vendors flagged as malicious**, including specific "Phishing" categorization from BitDefender and SOCRadar. Identified as a known Tor exit node (AS 60729, Stiftung Erneuerbare Freiheit). |
 
 **Note:** While the sender domain was fictional for this exercise, the originating IP address used in the sample's Received header is a real, currently-flagged malicious address associated with phishing activity and Tor exit node infrastructure — reinforcing a realistic detail: attackers frequently route phishing traffic through Tor or other anonymizing infrastructure to obscure their true origin.
