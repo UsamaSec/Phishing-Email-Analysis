@@ -53,14 +53,16 @@ This report analyzes a self-constructed phishing email impersonating internal IT
 
 | Indicator | Type | VirusTotal Result |
 |-----------|------|--------------------|
-| [URL/domain] | URL | [Clean / Flagged - X/90 vendors] |
-| [Sender IP] | IP | [result] |
-| [Attachment hash, if any] | File hash | [result] |
+| example-corp-secure-login.verify-account-portal.net | Domain | 0/91 vendors flagged (Unrated) — fictional domain, no real-world reputation history |
+| 185.220.101.47 | Originating IP (from Received header) | **13/91 vendors flagged as malicious**, including specific "Phishing" categorization from BitDefender and SOCRadar. Identified as a known Tor exit node (AS 60729, Stiftung Erneuerbare Freiheit). |
 
-![VirusTotal lookup results](screenshots/virustotal-results.png)
+**Note:** While the sender domain was fictional for this exercise, the originating IP address used in the sample's Received header is a real, currently-flagged malicious address associated with phishing activity and Tor exit node infrastructure — reinforcing a realistic detail: attackers frequently route phishing traffic through Tor or other anonymizing infrastructure to obscure their true origin.
+
+![VirusTotal IP lookup showing 13/91 malicious detections and Tor exit node tagging](screenshots/virustotal-ip-result.png)
+
 
 ## Verdict
-[State clearly: Malicious / Phishing confirmed / Suspicious / Benign - and why, referencing the specific evidence above]
+**Phishing confirmed.** This email exhibits multiple independent indicators of a credential-harvesting phishing attempt: complete SPF/DKIM/DMARC authentication failure, a spoofed display sender masking a lookalike Return-Path/Reply-To domain, urgency-based social engineering language, a mismatched embedded link, and an originating IP address independently flagged by 13 security vendors as malicious with a specific phishing classification. The convergence of header-level, content-level, and reputation-based evidence provides high confidence this is a phishing attempt.
 
 ## Recommendation
 [What should happen next in a real environment - e.g., block sender domain, report to email provider, user awareness reminder, block the URL at the web proxy/firewall]
