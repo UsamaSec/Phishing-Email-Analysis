@@ -78,4 +78,4 @@ Received: from mail-relay-node7.suspicious-mailserver.net (unknown [185.220.101.
 - **Verify DMARC enforcement** is properly configured on the legitimate domain (example-corp.com) to ensure spoofed messages using that display name are rejected before reaching inboxes
   
 ## MITRE ATT&CK Mapping
-**T1566.002 — Spearphishing Link**
+**[T1566.002 — Spearphishing Link](https://attack.mitre.org/techniques/T1566/002/)**
