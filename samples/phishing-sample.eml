@@ -1,0 +1,40 @@
+Delivered-To: usama.aslam@example-corp.com
+Received: from mail-relay-node7.suspicious-mailserver.net (unknown [185.220.101.47])
+        by mx.example-corp.com with ESMTPS id x7k29fA0021991
+        for <usama.aslam@example-corp.com>; Mon, 20 Jul 2026 03:14:22 -0700
+Return-Path: <no-reply@it-suport-example-corp.com>
+Received-SPF: fail (example-corp.com: domain of it-support@example-corp.com does not designate 185.220.101.47 as permitted sender)
+Authentication-Results: mx.example-corp.com;
+    spf=fail smtp.mailfrom=it-suport-example-corp.com;
+    dkim=fail header.d=it-suport-example-corp.com;
+    dmarc=fail (p=REJECT sp=REJECT dis=none) header.from=example-corp.com
+From: "IT Support" <it-support@example-corp.com>
+Reply-To: helpdesk-noreply@it-suport-example-corp.com
+To: usama.aslam@example-corp.com
+Subject: URGENT: Your Password Will Expire in 24 Hours - Action Required
+Date: Mon, 20 Jul 2026 03:14:20 -0700
+Content-Type: text/html; charset=UTF-8
+Message-ID: <8827x9-ndkq2-alert@it-suport-example-corp.com>
+
+Dear User,
+
+Our system has detected that your account password will expire in 24 hours.
+Failure to update your password immediately will result in account
+suspension and loss of access to company email, files, and internal systems.
+
+To avoid disruption, please verify your identity and reset your password
+immediately by clicking the secure link below:
+
+Reset My Password Now:
+http://example-corp-secure-login.verify-account-portal.net/reset?id=88271x&token=aXQtc3VwcG9ydA
+
+This link will expire in 1 hour. If you did not request this change, please
+disregard this notice, but note that no action is required to keep your
+current password active - we recommend resetting immediately to ensure
+uninterrupted access.
+
+Thank you,
+IT Support Team
+
+--
+This is an automated message. Please do not reply directly to this email.
