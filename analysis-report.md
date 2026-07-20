@@ -65,7 +65,12 @@ This report analyzes a self-constructed phishing email impersonating internal IT
 **Phishing confirmed.** This email exhibits multiple independent indicators of a credential-harvesting phishing attempt: complete SPF/DKIM/DMARC authentication failure, a spoofed display sender masking a lookalike Return-Path/Reply-To domain, urgency-based social engineering language, a mismatched embedded link, and an originating IP address independently flagged by 13 security vendors as malicious with a specific phishing classification. The convergence of header-level, content-level, and reputation-based evidence provides high confidence this is a phishing attempt.
 
 ## Recommendation
-[What should happen next in a real environment - e.g., block sender domain, report to email provider, user awareness reminder, block the URL at the web proxy/firewall]
 
+- **Block the sender domain** (it-suport-example-corp.com) and originating IP (185.220.101.47) at the email gateway/firewall to prevent delivery of further messages from this source
+- **Report and quarantine** the message; alert other users who may have received the same campaign
+- **Block the malicious URL domain** at the web proxy/firewall to prevent access even if a user clicks the link
+- **User awareness reminder** — this sample is a good candidate for a phishing simulation exercise, since it demonstrates a realistic urgency-based credential-harvesting attempt
+- **Verify DMARC enforcement** is properly configured on the legitimate domain (example-corp.com) to ensure spoofed messages using that display name are rejected before reaching inboxes
+  
 ## MITRE ATT&CK Mapping
 **T1566 — Phishing** [add sub-technique if applicable, e.g., T1566.002 — Spearphishing Link]
