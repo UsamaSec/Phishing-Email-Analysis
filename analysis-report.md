@@ -28,13 +28,16 @@ This report analyzes a self-constructed phishing email impersonating internal IT
 
 ## Header Analysis
 
-**Claimed "From" address:** [address]
+**Claimed "From" address:** "IT Support" <it-support@example-corp.com> — appears legitimate at first glance, matching the organization's real domain.
 
-**Actual sending server / Return-Path:** [what the raw headers show]
+**Actual reply/return path:** Both the Return-Path and Reply-To headers point to `it-suport-example-corp.com` — a lookalike domain using a deliberate misspelling ("suport" instead of "support"). The Received header shows the message originated from `mail-relay-node7.suspicious-mailserver.net` (185.220.101.47) — unrelated to the claimed organization's infrastructure.
 
 **Key header fields reviewed:**
 ```
-[Paste relevant raw header snippet here - Received, Return-Path, Reply-To, etc.]
+From: "IT Support" <it-support@example-corp.com>
+Return-Path: <no-reply@it-suport-example-corp.com>
+Reply-To: helpdesk-noreply@it-suport-example-corp.com
+Received: from mail-relay-node7.suspicious-mailserver.net (unknown [185.220.101.47])
 ```
 
 ![Raw header view](screenshots/raw-headers.png)
@@ -42,10 +45,12 @@ This report analyzes a self-constructed phishing email impersonating internal IT
 ## Authentication Results (SPF / DKIM / DMARC)
 
 | Check | Result | What It Means |
-|-------|--------|----------------|
-| SPF | [Pass/Fail/None] | [1 sentence] |
-| DKIM | [Pass/Fail/None] | [1 sentence] |
-| DMARC | [Pass/Fail/None] | [1 sentence] |
+| ----- | ------ | ------------- |
+| SPF | Fail | The sending server (185.220.101.47) was not authorized to send mail on behalf of the claimed domain |
+| DKIM | Fail | The email's cryptographic signature did not validate, indicating it was not authentically signed by the claimed domain |
+| DMARC | Fail (p=REJECT) | The domain's policy explicitly instructs receiving servers to reject messages failing SPF/DKIM — this email should have been blocked by a properly configured mail server |
+
+**Comparison — a legitimate domain's authentication records** (google.com, checked via MXToolbox) show a valid DNS record, published DMARC record, and enforced quarantine/reject policy — the opposite of this sample's failed results.
 
 ![MXToolbox authentication results](screenshots/mxtoolbox-comparison.png)
 
@@ -73,4 +78,4 @@ This report analyzes a self-constructed phishing email impersonating internal IT
 - **Verify DMARC enforcement** is properly configured on the legitimate domain (example-corp.com) to ensure spoofed messages using that display name are rejected before reaching inboxes
   
 ## MITRE ATT&CK Mapping
-**T1566 — Phishing** [add sub-technique if applicable, e.g., T1566.002 — Spearphishing Link]
+**T1566.002 — Spearphishing Link**
