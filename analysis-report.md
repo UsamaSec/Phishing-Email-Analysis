@@ -1,26 +1,30 @@
 # Phishing Email Analysis Report
 
 ## Summary
-[2-3 sentences: what the email claimed to be, what it was actually trying to do, and your overall verdict]
+This report analyzes a self-constructed phishing email impersonating internal IT support, requesting an urgent password reset. Header analysis confirmed sender spoofing and complete authentication failure (SPF, DKIM, and DMARC all failed), consistent with a credential-harvesting phishing attempt.
 
 ## Email Overview
 | Field | Value |
 |-------|-------|
-| Claimed sender | [e.g., "IT Support <it-support@company.com>"] |
-| Subject line | [subject] |
-| Date received | [date] |
-| Delivered to | [recipient, or "test inbox" if self-constructed] |
+| Claimed sender | it-support@example-corp.com |
+| Subject line | URGENT: Your Password Will Expire in 24 Hours - Action Required |
+| Date received | Mon, 20 Jul 2026 03:14:20 -0700 |
+| Delivered to | usama.aslam@example-corp.com (test inbox) |
+
+## Note on Sample Domain
+`example-corp.com` is a fictional domain used for this exercise and does not resolve to real DNS records, confirmed via MXToolbox below.
+
+![Confirmation that example-corp.com is not a registered domain](screenshots/example-corp-dns-notfound.png)
+
 
 ## Red Flags Identified (Content-Level)
-- [ ] Urgency/pressure language (e.g., "act now," "account will be suspended")
-- [ ] Generic greeting instead of personalized name
-- [ ] Suspicious/mismatched sender domain
-- [ ] Embedded link with display text differing from actual URL
-- [ ] Unexpected attachment
-- [ ] Poor grammar/spelling inconsistent with claimed sender
-- [ ] Request for credentials, payment, or sensitive info
+- [x] Urgency/pressure language — subject line and body repeatedly stress a 24-hour deadline and threaten account suspension
+- [x] Generic greeting — addressed to "Dear User" rather than the recipient's actual name
+- [x] Suspicious/mismatched sender domain — visible "From" address appears legitimate, but Return-Path and Reply-To both point to a misspelled lookalike domain (it-suport-example-corp.com)
+- [x] Embedded link with display text differing from actual URL — link text reads "Reset My Password Now" but the underlying URL points to an unrelated domain (verify-account-portal.net)
+- [x] Request for credential action framed as urgent/mandatory
+- [x] Internally contradictory logic — the email claims both that immediate action is required and that "no action is required," a common inconsistency in hastily constructed phishing templates
 
-[List which of these applied, with 1 sentence each explaining what you saw]
 
 ## Header Analysis
 
