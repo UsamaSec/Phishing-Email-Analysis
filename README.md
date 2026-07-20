@@ -24,10 +24,10 @@ See [analysis-report.md](analysis-report.md) for the full header analysis, IOC f
 
 ## Sample Screenshot
 
-![Header analysis results](screenshots/header-analysis.png)
+![VirusTotal flagging the email's originating IP as malicious, tied to a known Tor exit node](screenshots/virustotal-ip-result.png)
 
 ## What I Learned
-[Fill in once completed]
+Learned to trace a spoofing attempt through the full header chain — the visible "From" address looked legitimate, but the Return-Path and Reply-To headers revealed a misspelled lookalike domain, which wouldn't be visible without inspecting raw headers directly. Also learned that SPF/DKIM/DMARC failures alone can reliably flag a spoofed sender even before checking content. The most unexpected finding was that the fictional IP address I selected for the sample's Received header turned out to be a real, currently-flagged malicious IP tied to a known Tor exit node — a reminder that infrastructure-level indicators (like IPs) often carry real-world reputation data even in constructed examples, and that attackers commonly use anonymizing infrastructure like Tor to mask their origin.
 
 ## Next Steps
-[Optional — e.g., analyze a second real-world sample, or build a small Python script to automate header/IOC extraction]
+Analyze a second, real-world phishing sample from a spam folder for comparison. Consider extending the Python log analyzer from my SOC-Log-Analyzer project to automate basic header/IOC extraction from .eml files.
