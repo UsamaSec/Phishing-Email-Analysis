@@ -47,7 +47,7 @@ This report analyzes a self-constructed phishing email impersonating internal IT
 | DKIM | [Pass/Fail/None] | [1 sentence] |
 | DMARC | [Pass/Fail/None] | [1 sentence] |
 
-![MXToolbox authentication results](screenshots/mxtoolbox-results.png)
+![MXToolbox authentication results](screenshots/mxtoolbox-comparison.png)
 
 ## IOC Extraction
 
